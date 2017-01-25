@@ -384,6 +384,10 @@ func getParameters(cs *api.ContainerService, isClassicMode bool) (map[string]int
 		addValue(parametersMap, "networkPolicy", properties.OrchestratorProfile.KubernetesConfig.NetworkPolicy)
 		addValue(parametersMap, "servicePrincipalClientId", properties.ServicePrincipalProfile.ClientID)
 		addSecret(parametersMap, "servicePrincipalClientSecret", properties.ServicePrincipalProfile.Secret, false)
+
+		addValue(parametersMap, "kubeDnsServiceIp", properties.KubeNetworkConfig.KubeDnsServiceIp)
+		addValue(parametersMap, "kubeServiceCidr", properties.KubeNetworkConfig.KubeServiceCidr)
+		addValue(parametersMap, "kubeClusterCidr", properties.KubeNetworkConfig.KubeClusterCidr)
 	}
 
 	if strings.HasPrefix(string(properties.OrchestratorProfile.OrchestratorType), string(api.DCOS)) {

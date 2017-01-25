@@ -35,6 +35,15 @@
   "dockerEngineDownloadRepo": {
     "value": "https://apt.dockerproject.org/repo"
   },
+  "kubeClusterCidr": {
+    "value": "172.40.0.0/16"
+  },
+  "kubeDnsServiceIp": {
+    "value": "172.17.1.10"
+  },
+  "kubeServiceCidr": {
+    "value": "172.16.0.0/14"
+  },
   "firstConsecutiveStaticIP": {
     "value": "10.239.255.245"
   },

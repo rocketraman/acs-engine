@@ -49,6 +49,11 @@
       "clientPrivateKey": "clientPrivateKey",
       "kubeConfigCertificate": "kubeConfigCertificate",
       "kubeConfigPrivateKey": "kubeConfigPrivateKey"
+    },
+    "kubeNetworkConfig": {
+      "kubeDnsServiceIp": "172.17.1.10",
+      "kubeServiceCidr": "172.16.0.0/14",
+      "kubeClusterCidr": "172.40.0.0/16"
     }
   }
 }

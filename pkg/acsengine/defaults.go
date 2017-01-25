@@ -55,6 +55,8 @@ func SetPropertiesDefaults(cs *api.ContainerService) (bool, error) {
 
 	setMasterNetworkDefaults(properties)
 
+	setKubeNetworkConfigDefaults(p)
+
 	setAgentNetworkDefaults(properties)
 
 	setStorageDefaults(properties)
@@ -111,6 +113,18 @@ func setMasterNetworkDefaults(a *api.Properties) {
 		} else {
 			a.MasterProfile.IPAddressCount = DefaultAgentIPAddressCount
 		}
+	}
+}
+
+func setKubeNetworkConfigDefaults(a *api.Properties) {
+	if len(a.KubeNetworkConfig.KubeDnsServiceIp) == 0 {
+		a.KubeNetworkConfig.KubeDnsServiceIp = "10.0.0.10"
+	}
+	if len(a.KubeNetworkConfig.KubeServiceCidr) == 0 {
+		a.KubeNetworkConfig.KubeServiceCidr = "10.0.0.0/16"
+	}
+	if len(a.KubeNetworkConfig.KubeClusterCidr) == 0 {
+		a.KubeNetworkConfig.KubeClusterCidr = "10.244.0.0/16"
 	}
 }
 
@@ -193,7 +207,7 @@ func setDefaultCerts(a *api.Properties) (bool, error) {
 	if len(a.CertificateProfile.CaCertificate) != 0 && len(a.CertificateProfile.GetCAPrivateKey()) != 0 {
 		caPair = &PkiKeyCertPair{CertificatePem: a.CertificateProfile.CaCertificate, PrivateKeyPem: a.CertificateProfile.GetCAPrivateKey()}
 	} else {
-		caCertificate, caPrivateKey, err := createCertificate("ca", nil, nil, false, nil, nil)
+		caCertificate, caPrivateKey, err := createCertificate("ca", nil, nil, false, nil, nil, nil)
 		if err != nil {
 			return false, err
 		}
@@ -202,7 +216,11 @@ func setDefaultCerts(a *api.Properties) (bool, error) {
 		a.CertificateProfile.SetCAPrivateKey(caPair.PrivateKeyPem)
 	}
 
-	apiServerPair, clientPair, kubeConfigPair, err := CreatePki(masterExtraFQDNs, ips, DefaultKubernetesClusterDomain, caPair)
+	splitIp := strings.Split(a.KubeNetworkConfig.KubeServiceCidr, ".")
+	ip, _ := strconv.Atoi(splitIp[3])
+	kubernetesServiceIp := net.ParseIP(splitIp[0] + "." + splitIp[1] + "." + splitIp[2] + "." + strconv.Itoa(ip + 1))
+
+	apiServerPair, clientPair, kubeConfigPair, err := CreatePki(masterExtraFQDNs, ips, DefaultKubernetesClusterDomain, caPair, kubernetesServiceIp)
 	if err != nil {
 		return false, err
 	}

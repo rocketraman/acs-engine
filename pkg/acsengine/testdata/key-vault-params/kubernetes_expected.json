@@ -678,6 +678,24 @@
       },
       "type": "string"
     },
+    "kubeClusterCidr": {
+      "metadata": {
+        "description": "Kubernetes cluster address space"
+      },
+      "type": "string"
+    },
+    "kubeDnsServiceIp": {
+      "metadata": {
+        "description": "Kubernetes DNS IP"
+      },
+      "type": "string"
+    },
+    "kubeServiceCidr": {
+      "metadata": {
+        "description": "Kubernetes service address space"
+      },
+      "type": "string"
+    },
     "kubeConfigCertificate": {
       "metadata": {
         "description": "The base 64 certificate used by cli to communicate with the master"
@@ -949,8 +967,9 @@
     "dockerEngineVersion": "1.12.*",
     "kubeConfigCertificate": "[parameters('kubeConfigCertificate')]",
     "kubeConfigPrivateKey": "[parameters('kubeConfigPrivateKey')]",
-    "kubeDnsServiceIp": "10.0.0.10",
-    "kubeServiceCidr": "10.0.0.0/16",
+    "kubeClusterCidr": "[parameters('kubeClusterCidr')]",
+    "kubeDnsServiceIp": "[parameters('kubeDnsServiceIp')]",
+    "kubeServiceCidr": "[parameters('kubeServiceCidr')]",
     "kubernetesAddonManagerSpec": "[parameters('kubernetesAddonManagerSpec')]",
     "kubernetesAddonResizerSpec": "[parameters('kubernetesAddonResizerSpec')]",
     "kubernetesDNSMasqSpec": "[parameters('kubernetesDNSMasqSpec')]",

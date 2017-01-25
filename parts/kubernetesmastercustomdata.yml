@@ -233,7 +233,9 @@ write_files:
     sed -i "s|<kubernetesHyperkubeSpec>|{{{kubernetesHyperkubeSpec}}}|g; s|<masterFqdnPrefix>|{{{masterFqdnPrefix}}}|g; s|<allocateNodeCidrs>|{{{allocateNodeCidrs}}}|g" "/etc/kubernetes/manifests/kube-controller-manager.yaml"
     sed -i "s|<kubernetesHyperkubeSpec>|{{{kubernetesHyperkubeSpec}}}|g" "/etc/kubernetes/manifests/kube-scheduler.yaml"
     sed -i "s|<kubernetesHyperkubeSpec>|{{{kubernetesHyperkubeSpec}}}|g" "/etc/kubernetes/addons/kube-proxy-daemonset.yaml"
+    sed -i "s|<kubeClusterCidr>|{{{kubeClusterCidr}}}|g" "/etc/kubernetes/addons/kube-proxy-daemonset.yaml"
     sed -i "s|<kubernetesKubeDNSSpec>|{{{kubernetesKubeDNSSpec}}}|g; s|<kubernetesDNSMasqSpec>|{{{kubernetesDNSMasqSpec}}}|g; s|<kubernetesExecHealthzSpec>|{{{kubernetesExecHealthzSpec}}}|g" "/etc/kubernetes/addons/kube-dns-deployment.yaml"
+    sed -i "s|<kubeDnsServiceIp>|{{{kubeDnsServiceIp}}}|g" "/etc/kubernetes/addons/kube-dns-service.yaml"
     sed -i "s|<kubernetesHeapsterSpec>|{{{kubernetesHeapsterSpec}}}|g; s|<kubernetesAddonResizerSpec>|{{{kubernetesAddonResizerSpec}}}|g" "/etc/kubernetes/addons/kube-heapster-deployment.yaml"
     sed -i "s|<kubernetesDashboardSpec>|{{{kubernetesDashboardSpec}}}|g" "/etc/kubernetes/addons/kubernetes-dashboard-deployment.yaml"
 

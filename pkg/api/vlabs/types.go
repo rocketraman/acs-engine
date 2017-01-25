@@ -32,6 +32,7 @@ type Properties struct {
 	WindowsProfile          WindowsProfile          `json:"windowsProfile,omitempty"`
 	ServicePrincipalProfile ServicePrincipalProfile `json:"servicePrincipalProfile"`
 	CertificateProfile      CertificateProfile      `json:"certificateProfile"`
+	KubeNetworkConfig       KubeNetworkConfig       `json:"kubeNetworkConfig"`
 }
 
 // ServicePrincipalProfile contains the client and secret used by the cluster for Azure Resource CRUD
@@ -169,6 +170,12 @@ type AgentPoolProfile struct {
 
 	FQDN             string            `json:"fqdn,omitempty"`
 	CustomNodeLabels map[string]string `json:"customNodeLabels,omitempty"`
+}
+
+type KubeNetworkConfig struct {
+	KubeDnsServiceIp string `json:"kubeDnsServiceIp"`
+	KubeServiceCidr  string `json:"kubeServiceCidr"`
+	KubeClusterCidr  string `json:"kubeClusterCidr"`
 }
 
 // KeyVaultSecrets specifies certificates to install on the pool

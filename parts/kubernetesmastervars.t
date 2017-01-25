@@ -60,6 +60,9 @@
     "storageAccountPrefixesCount": "[length(variables('storageAccountPrefixes'))]",
     "vmsPerStorageAccount": 20,
     "provisionScript": "{{GetKubernetesB64Provision}}",
+    "kubeDnsServiceIp": "[parameters('kubeDnsServiceIp')]",
+    "kubeServiceCidr": "[parameters('kubeServiceCidr')]",
+    "kubeClusterCidr": "[parameters('kubeClusterCidr')]",
 {{if AnyAgentHasDisks}}
     "dataStorageAccountPrefixSeed": 97,
 {{end}}
@@ -82,8 +85,6 @@
     "virtualNetworkName": "[concat(variables('orchestratorName'), '-vnet-', variables('nameSuffix'))]",
     "vnetCidr": "10.0.0.0/8",
 {{end}}
-    "kubeDnsServiceIp": "10.0.0.10", 
-    "kubeServiceCidr": "10.0.0.0/16",
 {{if HasLinuxAgents}}
     "registerSchedulable": "false",
 {{else}}
